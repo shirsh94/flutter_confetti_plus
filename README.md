@@ -9,11 +9,8 @@ Use it for success states, rewards, onboarding moments, game wins, payment
 confirmations, or any moment that deserves a little motion without building a
 particle system from scratch.
 
-![Confetti preview](https://i.pinimg.com/originals/07/03/48/0703483f8e3100d87497817030fb903f.gif)
-
-## Confetti preview
 <p align="center">
-	<img src="https://github.com/shirsh94/flutter_confetti_plus/blob/main/demo/confetti.gif?raw=true" width="200"  />
+	<img src="https://github.com/shirsh94/flutter_confetti_plus/blob/main/demo/confetti.gif?raw=true"/>
 </p>
 
 
