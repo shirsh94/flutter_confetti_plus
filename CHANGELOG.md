@@ -1,3 +1,11 @@
+## 0.0.2
+
+- Highlighted the package feature set more clearly in the README.
+- Updated README installation instructions for the latest package version.
+- Improved release metadata for pub.dev scoring and repository verification.
+- Fixed publish analyzer warnings by cleaning up library naming, constructor
+  style, and unnecessary null assertions.
+
 ## 0.0.1
 
 - Initial release of `flutter_confetti_plus`.

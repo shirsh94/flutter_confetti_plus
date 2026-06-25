@@ -1,7 +1,7 @@
 name: flutter_confetti_plus
 description: A Flutter confetti package with quick overlays, controller-based widgets, emoji particles, widget sprites, and Konfetti-style party presets.
 
-version: 0.0.1
+version: 0.0.2
 
 homepage: https://github.com/shirsh94/flutter_confetti_plus
 repository: https://github.com/shirsh94/flutter_confetti_plus

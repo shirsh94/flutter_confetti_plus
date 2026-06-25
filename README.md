@@ -14,18 +14,28 @@ particle system from scratch.
 </p>
 
 
-## Features
+## Feature Highlights
 
-- One-line overlay launches with `Confetti.show(context)`.
-- Controller-based playback with `ConfettiController` and `ConfettiWidget`.
-- Emoji particles with any emoji supported by the platform font.
-- Custom widget sprite particles for branded chips, badges, icons, or tokens.
-- Konfetti-style `Party` API with built-in `festive`, `explode`, `parade`, and
-  `rain` presets.
-- Custom particle paths for stars, hearts, triangles, or app-specific shapes.
-- Tunable gravity, drag, blast direction, particle count, size, color, stroke,
-  and canvas bounds.
-- Optional frame-rate protection that pauses emission on slow frames.
+| Feature | What it gives you |
+| --- | --- |
+| One-line celebrations | Launch a complete overlay animation with `Confetti.show(context)`. |
+| Managed playback | Use `ConfettiController` and `ConfettiWidget` for play, stop, clear, loop, and lifecycle control. |
+| Emoji particles | Render any platform-supported emoji as confetti particles. |
+| Widget sprite particles | Turn Flutter widgets into particles for badges, chips, icons, rewards, or branded tokens. |
+| Party presets | Use Konfetti-style `PartyPresets.festive()`, `explode()`, `parade()`, and `rain()`. |
+| Custom shapes | Provide your own `Path` builder for stars, hearts, triangles, logos, or app-specific particles. |
+| Direction control | Choose radial explosions or cannon-style directional blasts with `ConfettiBlastDirection`. |
+| Physics tuning | Adjust particle count, gravity, drag, size, color, stroke, force, spread, and canvas bounds. |
+| Performance guard | Pause emission on slow frames with `pauseEmissionOnLowFrameRate`. |
+
+## Why Use It
+
+- Use `Confetti.show` when you want a quick fire-and-forget celebration.
+- Use `ConfettiWidget` when the animation belongs inside a screen or component.
+- Use `Party` when you want reusable celebration recipes with one or more
+  emitters.
+- Use `emojis` or `widgetSprites` when plain colored shapes are not expressive
+  enough for your product.
 
 ## Installation
 
@@ -33,7 +43,7 @@ Add the package to your app:
 
 ```yaml
 dependencies:
-  flutter_confetti_plus: ^0.0.1
+  flutter_confetti_plus: ^0.0.2
 ```
 
 Then import it:
