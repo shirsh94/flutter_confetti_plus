@@ -16,7 +16,7 @@ import '../shared/confetti_timing.dart';
 
 class ConfettiWidget extends StatefulWidget {
   const ConfettiWidget({
-    Key? key,
+    super.key,
     required this.confettiController,
     this.emissionFrequency = 0.02,
     this.numberOfParticles = 10,
@@ -53,8 +53,7 @@ class ConfettiWidget extends StatefulWidget {
         ),
         assert(gravity >= 0 && gravity <= 1,
             '`gravity` needs to be between 0 and 1'),
-        assert(strokeWidth >= 0, '`strokeWidth needs to be bigger than 0'),
-        super(key: key);
+        assert(strokeWidth >= 0, '`strokeWidth needs to be bigger than 0');
 
   final ConfettiController confettiController;
   final double maxBlastForce;

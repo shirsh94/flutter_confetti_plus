@@ -234,26 +234,30 @@ class ConfettiParticleEngine extends ChangeNotifier {
   }
 
   Color _randomColor() {
-    if (_colors == null) return RandomTools.materialColor();
-    if (_colors!.length == 1) return _colors![0];
-    return _colors![_random.nextInt(_colors!.length)];
+    final colors = _colors;
+    if (colors == null) return RandomTools.materialColor();
+    if (colors.length == 1) return colors[0];
+    return colors[_random.nextInt(colors.length)];
   }
 
   String? _randomEmoji() {
-    if (_emojis == null) return null;
-    if (_emojis!.length == 1) return _emojis![0];
-    return _emojis![_random.nextInt(_emojis!.length)];
+    final emojis = _emojis;
+    if (emojis == null) return null;
+    if (emojis.length == 1) return emojis[0];
+    return emojis[_random.nextInt(emojis.length)];
   }
 
   ui.Image? _randomSpriteImage() {
-    if (_spriteImages == null || _spriteImages!.isEmpty) return null;
-    if (_spriteImages!.length == 1) return _spriteImages!.first;
-    return _spriteImages![_random.nextInt(_spriteImages!.length)];
+    final spriteImages = _spriteImages;
+    if (spriteImages == null || spriteImages.isEmpty) return null;
+    if (spriteImages.length == 1) return spriteImages.first;
+    return spriteImages[_random.nextInt(spriteImages.length)];
   }
 
   Size _randomSize() {
-    if (_sizeOptions != null && _sizeOptions!.isNotEmpty) {
-      return _sizeOptions![_random.nextInt(_sizeOptions!.length)];
+    final sizeOptions = _sizeOptions;
+    if (sizeOptions != null && sizeOptions.isNotEmpty) {
+      return sizeOptions[_random.nextInt(sizeOptions.length)];
     }
     return Size(
       RandomTools.between(_minimumSize.width, _maximumSize.width),
@@ -266,8 +270,9 @@ class ConfettiParticleEngine extends ChangeNotifier {
       return Offset.zero;
     }
 
-    if (_spawnPosition is ConfettiBetweenPosition) {
-      final between = _spawnPosition! as ConfettiBetweenPosition;
+    final spawnPosition = _spawnPosition;
+    if (spawnPosition is ConfettiBetweenPosition) {
+      final between = spawnPosition;
       final point = between.resolveOffset(_screenSize, _random);
       final anchor = between.toAlignment();
       final anchorPoint = Offset(
@@ -282,8 +287,9 @@ class ConfettiParticleEngine extends ChangeNotifier {
 
   Path Function(Size size)? _resolveParticlePath(Size size) {
     if (_createParticlePath != null) return _createParticlePath;
-    if (_shapeOptions != null && _shapeOptions!.isNotEmpty) {
-      final shape = _shapeOptions![_random.nextInt(_shapeOptions!.length)];
+    final shapeOptions = _shapeOptions;
+    if (shapeOptions != null && shapeOptions.isNotEmpty) {
+      final shape = shapeOptions[_random.nextInt(shapeOptions.length)];
       return (Size _) => confettiShapePath(shape, size);
     }
     return null;
