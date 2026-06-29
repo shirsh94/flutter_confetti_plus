@@ -1,3 +1,18 @@
+## 0.0.3
+
+- Added `ConfettiPlus.launch` with `Cannon.left`, `Cannon.right`, and
+  `Cannon.center` for multi-cannon overlay blasts.
+- Added one-line celebration helpers: `ConfettiPlus.success`,
+  `ConfettiPlus.failure`, `ConfettiPlus.levelUp`, and
+  `ConfettiPlus.purchase`.
+- Added `ConfettiPlus.sequence` and `ConfettiStep` presets for timeline
+  animations including burst, fireworks, and rain steps.
+- Added `ConfettiMode` and `ConfettiPlus.launchMode` for fireworks, fountain,
+  rain, and explosion motion modes.
+- Updated README documentation for the new high-level APIs.
+- Added widget tests covering cannon launches, celebration helpers, timeline
+  sequences, and motion modes.
+
 ## 0.0.2
 
 - Highlighted the package feature set more clearly in the README.

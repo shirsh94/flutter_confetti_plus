@@ -17,8 +17,12 @@ class PartyLauncher {
     bool rootOverlay = false,
     Duration? removeAfter,
   }) {
-    return launchAll(context, [party],
-        rootOverlay: rootOverlay, removeAfter: removeAfter);
+    return launchAll(
+      context,
+      [party],
+      rootOverlay: rootOverlay,
+      removeAfter: removeAfter,
+    );
   }
 
   /// Shows multiple [Party] celebrations at once, like Konfetti's multi-party API.
@@ -31,6 +35,17 @@ class PartyLauncher {
     if (parties.isEmpty) return;
 
     final overlay = Overlay.of(context, rootOverlay: rootOverlay);
+    return launchAllOnOverlay(overlay, parties, removeAfter: removeAfter);
+  }
+
+  /// Shows multiple [Party] celebrations on a resolved overlay.
+  static Future<void> launchAllOnOverlay(
+    OverlayState overlay,
+    List<Party> parties, {
+    Duration? removeAfter,
+  }) async {
+    if (parties.isEmpty) return;
+
     final entries = <OverlayEntry>[];
     final controllers = <ConfettiController>[];
     final delays = <Future<void>>[];
@@ -95,7 +110,8 @@ class PartyLauncher {
     final longestParty = parties.reduce((current, next) {
       return current.playbackDuration > next.playbackDuration ? current : next;
     });
-    final cleanupAfter = removeAfter ??
+    final cleanupAfter =
+        removeAfter ??
         longestParty.playbackDuration + longestParty.playbackDuration;
 
     await Future.wait(delays);

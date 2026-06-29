@@ -2,8 +2,8 @@ flutter_confetti_plus
 =====================
 
 A Flutter confetti package for quick celebration overlays, fully controlled
-confetti widgets, emoji particles, custom widget sprites, and Konfetti-style
-party presets.
+confetti widgets, emoji particles, custom widget sprites, cannon blasts,
+timeline animations, motion modes, and Konfetti-style party presets.
 
 Use it for success states, rewards, onboarding moments, game wins, payment
 confirmations, or any moment that deserves a little motion without building a
@@ -19,6 +19,10 @@ particle system from scratch.
 | Feature | What it gives you |
 | --- | --- |
 | One-line celebrations | Launch a complete overlay animation with `Confetti.show(context)`. |
+| Multi-cannon blasts | Fire multiple directional cannons at once with `ConfettiPlus.launch(context, cannons: [...])`. |
+| Celebration presets | Use `ConfettiPlus.success`, `failure`, `levelUp`, and `purchase` for common product moments. |
+| Timeline animations | Chain `ConfettiStep` presets with `ConfettiPlus.sequence`. |
+| Motion modes | Choose `ConfettiMode.fireworks`, `fountain`, `rain`, or `explosion`. |
 | Managed playback | Use `ConfettiController` and `ConfettiWidget` for play, stop, clear, loop, and lifecycle control. |
 | Emoji particles | Render any platform-supported emoji as confetti particles. |
 | Widget sprite particles | Turn Flutter widgets into particles for badges, chips, icons, rewards, or branded tokens. |
@@ -43,7 +47,7 @@ Add the package to your app:
 
 ```yaml
 dependencies:
-  flutter_confetti_plus: ^0.0.2
+  flutter_confetti_plus: ^0.0.3
 ```
 
 Then import it:
@@ -92,6 +96,161 @@ dialogs, or tab shells:
 Confetti.show(
   context,
   rootOverlay: true,
+);
+```
+
+Launch multiple cannon blasts at once:
+
+```dart
+ConfettiPlus.launch(
+  context,
+  cannons: [
+    Cannon.left(),
+    Cannon.right(),
+  ],
+);
+```
+
+Use built-in celebration types for common product moments:
+
+```dart
+ConfettiPlus.success(context);
+ConfettiPlus.failure(context);
+ConfettiPlus.levelUp(context);
+ConfettiPlus.purchase(context);
+```
+
+Play timeline animations in sequence:
+
+```dart
+await ConfettiPlus.sequence([
+  ConfettiStep.burst(),
+  ConfettiStep.fireworks(),
+  ConfettiStep.rain(),
+]);
+```
+
+Choose a motion mode when you want more than falling confetti:
+
+```dart
+ConfettiMode.fireworks;
+ConfettiMode.fountain;
+ConfettiMode.rain;
+ConfettiMode.explosion;
+
+await ConfettiPlus.launchMode(context, ConfettiMode.fireworks);
+```
+
+## ConfettiPlus API
+
+Use `ConfettiPlus` when you want expressive overlay effects without manually
+building controllers or party configurations.
+
+### Multi-Cannon Blasts
+
+Cannons are directional launchers that convert to `Party` configurations under
+the hood.
+
+```dart
+ConfettiPlus.launch(
+  context,
+  cannons: [
+    Cannon.left(),
+    Cannon.right(),
+  ],
+);
+```
+
+Available cannon presets:
+
+- `Cannon.left()`: launches from the lower-left edge.
+- `Cannon.right()`: launches from the lower-right edge.
+- `Cannon.center()`: launches from the bottom center.
+
+Each cannon can be tuned with colors, speed, spread, delay, sizes, shapes,
+emojis, and emitter settings:
+
+```dart
+ConfettiPlus.launch(
+  context,
+  cannons: [
+    Cannon.left(
+      colors: const [Colors.teal, Colors.amber, Colors.white],
+      spread: 50,
+      emitter: ConfettiEmitter.burst(max: 40),
+    ),
+    Cannon.right(
+      delay: const Duration(milliseconds: 120),
+      emitter: ConfettiEmitter.burst(max: 30),
+    ),
+  ],
+);
+```
+
+### Celebration Types
+
+Use the built-in celebration helpers for common UI moments:
+
+```dart
+ConfettiPlus.success(context);
+ConfettiPlus.failure(context);
+ConfettiPlus.levelUp(context);
+ConfettiPlus.purchase(context);
+```
+
+Each helper accepts `rootOverlay` and `removeAfter`:
+
+```dart
+ConfettiPlus.levelUp(
+  context,
+  rootOverlay: true,
+  removeAfter: const Duration(seconds: 4),
+);
+```
+
+### Timeline Animations
+
+Use `ConfettiPlus.sequence` to play several steps in order:
+
+```dart
+await ConfettiPlus.sequence([
+  ConfettiStep.burst(),
+  ConfettiStep.fireworks(),
+  ConfettiStep.rain(),
+]);
+```
+
+`sequence` can resolve the app overlay automatically after `runApp`, or you can
+pass a context when launching from a nested navigator or dialog:
+
+```dart
+await ConfettiPlus.sequence(
+  [
+    ConfettiStep.burst(delayAfter: const Duration(milliseconds: 150)),
+    ConfettiStep.rain(duration: const Duration(seconds: 2)),
+  ],
+  context: context,
+);
+```
+
+### Motion Modes
+
+Use `ConfettiMode` when you want a named motion style:
+
+```dart
+await ConfettiPlus.launchMode(context, ConfettiMode.fireworks);
+await ConfettiPlus.launchMode(context, ConfettiMode.fountain);
+await ConfettiPlus.launchMode(context, ConfettiMode.rain);
+await ConfettiPlus.launchMode(context, ConfettiMode.explosion);
+```
+
+Customize mode colors inline:
+
+```dart
+await ConfettiPlus.launchMode(
+  context,
+  ConfettiMode.fountain,
+  colors: const [Colors.purple, Colors.cyan, Colors.yellow],
 );
 ```
 
@@ -442,10 +601,29 @@ Confetti.show(
 | `emojis` | Optional emoji particles. |
 | `createParticlePath` | Optional custom path that overrides built-in shapes. |
 
+## ConfettiPlus Options
+
+| API | What it does |
+| --- | --- |
+| `ConfettiPlus.launch` | Launches one or more `Cannon` presets together. |
+| `ConfettiPlus.success` | Bright two-cannon celebration for successful actions. |
+| `ConfettiPlus.failure` | Compact warning-colored burst for failed actions. |
+| `ConfettiPlus.levelUp` | Larger staged blast for progression moments. |
+| `ConfettiPlus.purchase` | Green and gold celebration for checkout or reward flows. |
+| `ConfettiPlus.sequence` | Plays `ConfettiStep` items one after another. |
+| `ConfettiPlus.launchMode` | Launches a named `ConfettiMode` motion style. |
+
+| Type | Main presets |
+| --- | --- |
+| `Cannon` | `left`, `right`, `center` |
+| `ConfettiStep` | `burst`, `fireworks`, `rain` |
+| `ConfettiMode` | `fireworks`, `fountain`, `rain`, `explosion` |
+
 ## Running The Example
 
 The repository includes a full example app with controller demos, party presets,
-emoji particles, and widget sprites.
+emoji particles, widget sprites, cannon blasts, timeline sequences, and motion
+modes.
 
 ```bash
 cd example
@@ -478,3 +656,6 @@ screen, should wrap a child widget, or needs explicit start and stop behavior.
 
 Use `Party` and `PartyPresets` when you want reusable celebration recipes,
 multiple emitters, or Konfetti-style configuration.
+
+Use `ConfettiPlus` when you want the newest high-level API: multi-cannon blasts,
+celebration types, timeline animations, or named motion modes.
